@@ -6,6 +6,17 @@ out=$dir/out/target/product
 
 export Changelog=$PWD/Changelog.txt
 
+if [ -z $CHGLOGDUR ];
+then
+    CHGLOGDUR="10"
+fi
+
+if [ $CHGLOGDUR -gt 30 ];
+then
+    echo "Duration greater than 30 is not allowed, resetting to 10"
+    CHGLOGDUR="10"
+fi
+
 if [ -f $Changelog ];
 then
 	rm -f $Changelog
@@ -16,7 +27,7 @@ touch $Changelog
 # Print something to build output
 echo ${bldppl}"Generating changelog..."${txtrst}
 
-for i in $(seq 10);
+for i in $(seq $CHGLOGDUR);
 do
 export After_Date=`date --date="$i days ago" +%F`
 k=$(expr $i - 1)
