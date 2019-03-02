@@ -83,3 +83,7 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/du/overlay/common
 
 # Google sounds
 include vendor/du/google/GoogleAudio.mk
+
+# Charger font
+PRODUCT_PACKAGES += \
+    charger_font.png
