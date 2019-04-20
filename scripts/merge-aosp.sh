@@ -44,7 +44,7 @@ COLOR_RED='\033[0;31m'
 COLOR_BLANK='\033[0m'
 
 function is_in_blacklist() {
-  if [[ $( grep -i "caf" $WORKING_DIR/manifest/o8x_default.xml) ]]; then
+  if [[ $( grep -i "caf" $WORKING_DIR/manifest/o8x_default.xml $WORKING_DIR/manifest/NOR-mod.xml) ]]; then
       for caf in ${caf_blacklist[@]}
       do
         if [ "$caf" == "$1" ]; then
@@ -69,8 +69,8 @@ function get_repos() {
   for i in ${repos[@]}
   do
     if grep -q "$i" /tmp/rebase.tmp; then # If Google has it and
-      if grep -q "$i" $WORKING_DIR/manifest/o8x_default.xml; then # If we have it in our manifest and
-        if grep "$i" $WORKING_DIR/manifest/o8x_default.xml | grep -q "remote="; then # If we track our own copy of it
+      if grep -q "$i" $WORKING_DIR/manifest/o8x_default.xml $WORKING_DIR/manifest/NOR-mod.xml; then # If we have it in our manifest and
+        if grep "$i" $WORKING_DIR/manifest/o8x_default.xml $WORKING_DIR/manifest/NOR-mod.xml| grep -q "remote="; then # If we track our own copy of it
           if ! is_in_blacklist $i; then # If it's not in our blacklist
             upstream+=("$i") # Then we need to update it
           else
